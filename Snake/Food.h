@@ -10,8 +10,7 @@ class Food
 public:
 	//Public functions
 	void renderFood(sf::RenderTarget& target);
-	//ADD AN OPTION TO REMOVE THE OBJECT OR STH
-	void deleteFood();
+	void moveFood();
 
 	const sf::FloatRect getFoodBounds() const;
 
