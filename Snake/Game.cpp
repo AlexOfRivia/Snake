@@ -3,11 +3,17 @@
 //Updating events in the game
 void Game::updateEvents()
 {
+	sf::Clock clock;
+	float dt = clock.restart().asSeconds();
+
 	while (this->window->pollEvent(this->event))
 	{
 		if (this->event.type == sf::Event::Closed)
 			this->window->close();
 	}
+
+	//Player Movement
+	this->player->updatePlayer(dt, this->window);
 }
 
 
@@ -23,7 +29,7 @@ void Game::Render()
 {
 	this->window->clear(sf::Color::Black); //Clears old frame
 	//Rendering(drawing) the objects
-	
+	this->player->renderPlayer(*this->window);
 	this->window->display(); //Displays new frame
 }
 
@@ -31,12 +37,6 @@ void Game::Render()
 void Game::InitVariables()
 {
 	this->window = nullptr;
-}
-
-//Initializing the player
-void Game::InitPlayer()
-{
-	
 }
 
 //Initializing the window
@@ -58,11 +58,12 @@ Game::Game()
 {
 	this->InitVariables(); //this function must be first, because of window being set to nullptr
 	this->InitWindow();
+	this->player = new Player(this->window);
 }
 
 //Destructor
 Game::~Game()
 {
 	delete this->window;
-	//delete player
+	delete this->player;
 }

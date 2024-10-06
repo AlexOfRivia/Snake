@@ -9,6 +9,10 @@ class Player
 {
 public:
 	//Public functions
+	void playerMovement(const float& dirX, const float& dirY);
+	void updatePlayer(float dt, sf::RenderWindow* win);
+	void addScore(int points);
+	void renderPlayer(sf::RenderTarget& target);
 
 	const sf::FloatRect playerBounds() const; //Returns player bounds
 
@@ -19,5 +23,9 @@ public:
 private:
 	//Private functions
 	void initVariavles();
+	float movementSpeed;
+	int score;
+
+	sf::RectangleShape playerShape;
 };
 

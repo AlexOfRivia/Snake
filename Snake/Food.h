@@ -17,5 +17,6 @@ public:
 private:
 	//Private functions
 
+	sf::RectangleShape foodShape;
 };
 
