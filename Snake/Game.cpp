@@ -10,6 +10,8 @@ void Game::updateEvents()
 	}
 }
 
+
+
 //Updating the game overall
 void Game::Update()
 {
@@ -29,6 +31,12 @@ void Game::Render()
 void Game::InitVariables()
 {
 	this->window = nullptr;
+}
+
+//Initializing the player
+void Game::InitPlayer()
+{
+	
 }
 
 //Initializing the window

@@ -1,4 +1,6 @@
 #pragma once
+#include "Player.h"
+#include "Food.h"
 #include <iostream>
 #include <map>
 #include <ctime>
@@ -31,8 +33,11 @@ class Game
 	sf::RenderWindow* window;
 	sf::Event event;
 
+	Player* player;
+
 	//private functions
 	void InitVariables();
 	void InitWindow();
+	void InitPlayer();
 };
 
