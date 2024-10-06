@@ -34,6 +34,7 @@ class Game
 	sf::Event event;
 
 	Player* player;
+	Food* food;
 
 	//private functions
 	void InitVariables();

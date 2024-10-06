@@ -14,6 +14,12 @@ void Game::updateEvents()
 
 	//Player Movement
 	this->player->updatePlayer(dt, this->window);
+
+	if (this->player->getPlayerBounds().intersects(this->food->getFoodBounds()))
+	{
+		
+		std::cout << "Collision\n";
+	}
 }
 
 
@@ -30,6 +36,7 @@ void Game::Render()
 	this->window->clear(sf::Color::Black); //Clears old frame
 	//Rendering(drawing) the objects
 	this->player->renderPlayer(*this->window);
+	this->food->renderFood(*this->window);
 	this->window->display(); //Displays new frame
 }
 
@@ -59,6 +66,7 @@ Game::Game()
 	this->InitVariables(); //this function must be first, because of window being set to nullptr
 	this->InitWindow();
 	this->player = new Player(this->window);
+	this->food = new Food(this->window);
 }
 
 //Destructor
@@ -66,4 +74,5 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->player;
+	delete this->food;
 }

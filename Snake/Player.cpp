@@ -35,7 +35,7 @@ void Player::renderPlayer(sf::RenderTarget& target)
 }
 
 //Returns player bounds for collisions, etc.
-const sf::FloatRect Player::playerBounds() const
+const sf::FloatRect Player::getPlayerBounds() const
 {
 	return this->playerShape.getGlobalBounds();
 }

@@ -9,9 +9,12 @@ class Food
 {
 public:
 	//Public functions
+	void renderFood(sf::RenderTarget& target);
+
+	const sf::FloatRect getFoodBounds() const;
 
 	//Constructor & Destructor
-	Food();
+	Food(sf::RenderWindow* win);
 	~Food();
 
 private:

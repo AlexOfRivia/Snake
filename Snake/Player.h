@@ -14,7 +14,7 @@ public:
 	void addScore(int points);
 	void renderPlayer(sf::RenderTarget& target);
 
-	const sf::FloatRect playerBounds() const; //Returns player bounds
+	const sf::FloatRect getPlayerBounds() const; //Returns player bounds
 
 	//Constructor & Destructor
 	Player(sf::RenderWindow* win);
