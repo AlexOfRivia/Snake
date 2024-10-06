@@ -33,10 +33,11 @@ class Game
 	sf::RenderWindow* window;
 	sf::Event event;
 
+	//Player and food objects
 	Player* player;
 	Food* foodObj;
 
-	std::vector<Food*> food;
+	//Snake body vector will go here
 
 	//private functions
 	void InitVariables();

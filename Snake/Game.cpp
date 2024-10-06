@@ -18,13 +18,14 @@ void Game::updateEvents()
 
 }
 
+//Updating player-food collision
 void Game::updateFood()
 {
 	if (this->player->getPlayerBounds().intersects(this->foodObj->getFoodBounds()) )
 	{
+		this->foodObj->moveFood(rand()%1920, rand()%1080);
+		this->player->addScore(1);
 		std::cout << "Collision detected\n";
-		/*TODO
-		USE THE MOVE FUNCTION TO CHANGE THE POSITION OF FOOD INSTEAD OF DELETING IT!!!*/
 	}
 }
 
@@ -81,8 +82,4 @@ Game::~Game()
 	delete this->player;
 	delete this->foodObj;
 	
-	for (auto* i : this->food)
-	{
-		delete i;
-	}
 }

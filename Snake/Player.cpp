@@ -44,7 +44,7 @@ const sf::FloatRect Player::getPlayerBounds() const
 void Player::initVariavles()
 {
 	this->score = 0;
-	this->movementSpeed = 3.f;
+	this->movementSpeed = 2.5f;
 	playerShape.setSize(sf::Vector2f(60,60));
 	playerShape.setFillColor(sf::Color::Green);
 }
@@ -53,7 +53,7 @@ void Player::initVariavles()
 void Player::addScore(int points)
 {
 	this->score += points;
-	std::cout << "Current score: " << this->score;
+	std::cout << "Current score: " << this->score <<"\n";
 }
 
 //Constructor

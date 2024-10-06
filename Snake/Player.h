@@ -18,7 +18,10 @@ public:
 	void addScore(int points);
 	void renderPlayer(sf::RenderTarget& target);
 
-	const sf::FloatRect getPlayerBounds() const; //Returns player bounds
+	//Getting player bounds
+	const sf::FloatRect getPlayerBounds() const;
+
+	//Public parameters
 	bool isDead;
 
 	//Constructor & Destructor
@@ -28,6 +31,8 @@ public:
 private:
 	//Private functions
 	void initVariavles();
+
+	//Private parameters
 	float movementSpeed;
 	int score;
 

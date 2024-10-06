@@ -7,6 +7,12 @@ void Food::renderFood(sf::RenderTarget& target)
 	target.draw(this->foodShape);
 }
 
+//Changing food location 
+void Food::moveFood(float posX, float posY)
+{
+	this->foodShape.setPosition(posX,posY);
+}
+
 //Getting food bounds
 const sf::FloatRect Food::getFoodBounds() const
 {

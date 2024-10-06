@@ -10,8 +10,9 @@ class Food
 public:
 	//Public functions
 	void renderFood(sf::RenderTarget& target);
-	void moveFood();
+	void moveFood(float posX, float posY);
 
+	//Getting food bounds
 	const sf::FloatRect getFoodBounds() const;
 
 	//Constructor & Destructor
