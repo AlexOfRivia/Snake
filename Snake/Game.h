@@ -34,10 +34,13 @@ class Game
 	sf::Event event;
 
 	Player* player;
-	Food* food;
+	Food* foodObj;
+
+	std::vector<Food*> food;
 
 	//private functions
 	void InitVariables();
 	void InitWindow();
+	void updateFood();
 };
 

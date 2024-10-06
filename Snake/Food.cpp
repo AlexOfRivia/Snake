@@ -14,11 +14,11 @@ const sf::FloatRect Food::getFoodBounds() const
 }
 
 //constructor
-Food::Food(sf::RenderWindow* win)
+Food::Food(sf::RenderWindow* win, float posX, float posY)
 {
 	this->foodShape.setSize(sf::Vector2f(60, 60));
 	this->foodShape.setFillColor(sf::Color::Red);
-	this->foodShape.setPosition((float)1920/2,(float)1080/2);
+	this->foodShape.setPosition(posX,posY);
 }
 
 //Destructor

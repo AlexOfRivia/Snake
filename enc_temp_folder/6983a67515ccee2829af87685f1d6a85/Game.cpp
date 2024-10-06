@@ -23,6 +23,7 @@ void Game::updateFood()
 	if (this->player->getPlayerBounds().intersects(this->foodObj->getFoodBounds()) )
 	{
 		std::cout << "Collision detected\n";
+		delete foodObj;
 	}
 }
 

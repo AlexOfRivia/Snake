@@ -5,6 +5,10 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
 
+/*TODO
+- MAKE THE SNAKE BODY A SEPPARATE OBJECT AND PUT IT INTO A VECTOR
+*/
+
 class Player
 {
 public:
@@ -15,6 +19,7 @@ public:
 	void renderPlayer(sf::RenderTarget& target);
 
 	const sf::FloatRect getPlayerBounds() const; //Returns player bounds
+	bool isDead;
 
 	//Constructor & Destructor
 	Player(sf::RenderWindow* win);
