@@ -87,7 +87,7 @@ void Player::initVariavles()
 		piece.setSize(sf::Vector2f(60, 60));
 		piece.setFillColor(sf::Color::Green);
 		piece.setPosition({x,60.f});
-		x += 65;
+		x += 60;
 	}
 }
 
