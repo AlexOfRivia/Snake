@@ -23,7 +23,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	{
 		if (elapsedTime.asSeconds() > 0.1f)
 		{
-			this->playerMovement(-60.f, 0.f); //The 60 means, that it will move by 60 pixels, which in this case is the "block" and food size
+			this->playerMovement(-65.f, 0.f); //The 60 means, that it will move by 60 pixels, which in this case is the "block" and food size
 			elapsedTime = sf::Time::Zero;
 		}
 	}
@@ -31,7 +31,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	{
 		if (elapsedTime.asSeconds() > 0.1f)
 		{
-			this->playerMovement(60.f, 0.f); 
+			this->playerMovement(65.f, 0.f); 
 			elapsedTime = sf::Time::Zero;
 		}
 	}
@@ -39,7 +39,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	{
 		if (elapsedTime.asSeconds() > 0.1f)
 		{
-			this->playerMovement(0.f, -60.f);
+			this->playerMovement(0.f, -65.f);
 			elapsedTime = sf::Time::Zero;
 		}
 	}
@@ -47,7 +47,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	{
 		if (elapsedTime.asSeconds() > 0.1f)
 		{
-			this->playerMovement(0.f, 60.f);
+			this->playerMovement(0.f, 65.f);
 			elapsedTime = sf::Time::Zero;
 		}
 	}
@@ -64,9 +64,14 @@ void Player::renderPlayer(sf::RenderTarget& target)
 }
 
 //Function used for adding new blocks to the snake
-void Player::growSnake(const sf::Vector2f& direction)
+void Player::growSnake()
 {
-	
+	sf::RectangleShape newPiece;
+	newPiece.setSize(sf::Vector2f(60, 60));
+	newPiece.setFillColor(sf::Color::Green);
+	newPiece.setPosition(snakeHead->getPosition());
+
+	snakeHead = snakeBody.insert(++snakeHead, newPiece);
 }
 
 //Returns player bounds for collisions, etc.
@@ -75,19 +80,28 @@ const sf::FloatRect Player::getPlayerBounds() const
 	return this->snakeHead->getGlobalBounds();
 }
 
+const sf::FloatRect Player::getBodyBounds() const
+{
+	for (auto& piece : this->snakeBody)
+	{
+		return piece.getGlobalBounds();
+	}
+}
+
+
 //Initializing player variables
 void Player::initVariavles()
 {
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
 	this->movementSpeed = 2.0f;
-	float x = 60.f;
+	float x = 65.f;
 	for (auto& piece : this->snakeBody)
 	{
 		piece.setSize(sf::Vector2f(60, 60));
 		piece.setFillColor(sf::Color::Green);
-		piece.setPosition({x,60.f});
-		x += 60;
+		piece.setPosition({x,65.f});
+		x += 65;
 	}
 }
 

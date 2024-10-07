@@ -14,11 +14,14 @@ public:
 	void playerMovement(const float& dirX, const float& dirY);
 	void updatePlayer(sf::Time dt, sf::RenderWindow* win);
 	void renderPlayer(sf::RenderTarget& target);
-	void growSnake(const sf::Vector2f& direction);
+	void growSnake();
 	void addScore(int points);
 
 	//Getting player bounds
 	const sf::FloatRect getPlayerBounds() const;
+	//Getting body bounds
+	const sf::FloatRect getBodyBounds() const;
+
 
 	//Public parameters
 	bool isDead;
