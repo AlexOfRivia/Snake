@@ -4,7 +4,7 @@
 void Game::updateEvents()
 {
 	sf::Clock clock;
-	float dt = clock.restart().asSeconds();
+	deltaTime = sf::seconds(1.f/60.f);
 
 	while (this->window->pollEvent(this->event))
 	{
@@ -13,7 +13,7 @@ void Game::updateEvents()
 	}
 
 	//Player Movement
-	this->player->updatePlayer(dt, this->window);
+	this->player->updatePlayer(this->deltaTime, this->window);
 	this->updateFood();
 
 }

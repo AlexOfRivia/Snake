@@ -80,7 +80,7 @@ void Player::initVariavles()
 {
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
-	this->movementSpeed = 2.0f;
+	this->movementSpeed = 2.5f;
 	float x = 60.f;
 	for (auto& piece : this->snakeBody)
 	{
@@ -109,5 +109,8 @@ Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(
 //Destructor
 Player::~Player()
 {
-	
+	for (auto &blocks : this->snakeBody)
+	{
+		delete &blocks;
+	}
 }

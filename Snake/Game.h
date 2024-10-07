@@ -32,6 +32,7 @@ class Game
 	private:
 	sf::RenderWindow* window;
 	sf::Event event;
+	sf::Time deltaTime;
 
 	//Player and food objects
 	Player* player;
