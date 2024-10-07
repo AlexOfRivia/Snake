@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
@@ -11,7 +12,7 @@ class Player
 {
 public:
 	//Public functions
-	void playerMovement(const float& dirX, const float& dirY);
+	void playerMovement(sf::Vector2f& moveDirection);
 	void updatePlayer(sf::Time dt, sf::RenderWindow* win);
 	void renderPlayer(sf::RenderTarget& target);
 	void growSnake();

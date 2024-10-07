@@ -1,16 +1,18 @@
 #include "Player.h"
 
 //Moving the player
-void Player::playerMovement(const float& dirX, const float& dirY)
+void Player::playerMovement(sf::Vector2f &moveDirection)
 {
-	snakeTail->setPosition((float)snakeHead->getPosition().x+dirX, (float)snakeHead->getPosition().y + dirY);
-	snakeHead = snakeTail;
-	++snakeTail;
+		snakeTail->setPosition(snakeHead->getPosition() + moveDirection);
+		snakeHead = snakeTail;
+		++snakeTail;
 
-	if (snakeTail==snakeBody.end())
-	{
-		snakeTail = snakeBody.begin();
-	}
+		if (snakeTail == snakeBody.end())
+		{
+			snakeTail = snakeBody.begin();
+		}
+
+
 }
 
 //Updating the player
@@ -18,36 +20,47 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 
+	sf::Vector2f newSnakeDirection = snakeHead->getPosition();
+	
 	//General Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		if (elapsedTime.asSeconds() > 0.1f)
 		{
-			this->playerMovement(-65.f, 0.f); //The 60 means, that it will move by 60 pixels, which in this case is the "block" and food size
+			newSnakeDirection = { -65.f,0.f };
+			this->playerMovement(newSnakeDirection); //The 60 means, that it will move by 60 pixels, which in this case is the "block" and food size
 			elapsedTime = sf::Time::Zero;
+			
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.1f )
 		{
-			this->playerMovement(65.f, 0.f); 
+			newSnakeDirection = { 65.f,0.f };
+			this->playerMovement(newSnakeDirection); 
 			elapsedTime = sf::Time::Zero;
+			
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.1f )
 		{
-			this->playerMovement(0.f, -65.f);
+
+			newSnakeDirection = { 0.f ,-65.f };
+			this->playerMovement(newSnakeDirection);
 			elapsedTime = sf::Time::Zero;
+
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.1f )
 		{
-			this->playerMovement(0.f, 65.f);
+
+			newSnakeDirection = { 0.f ,65.f };
+			this->playerMovement(newSnakeDirection);
 			elapsedTime = sf::Time::Zero;
 		}
 	}
