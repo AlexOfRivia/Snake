@@ -11,8 +11,6 @@ void Player::playerMovement(sf::Vector2f &moveDirection)
 		{
 			snakeTail = snakeBody.begin();
 		}
-
-
 }
 
 //Updating the player
