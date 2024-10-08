@@ -15,7 +15,7 @@ public:
 	void playerMovement(sf::Vector2f& moveDirection);
 	void updatePlayer(sf::Time dt, sf::RenderWindow* win);
 	void renderPlayer(sf::RenderTarget& target);
-	void updateMovement(sf::Time deltaTime);
+	void updateMovement();
 	void growSnake();
 	void addScore(int points);
 
@@ -41,7 +41,7 @@ private:
 	int score;
 
 	sf::Time elapsedTime;
-	sf::Vector2f snakeDirection = {65.f,0.f};
+	sf::Vector2f snakeDirection;
 	std::list<sf::RectangleShape> snakeBody;
 	std::list<sf::RectangleShape>::iterator snakeHead;
 	std::list<sf::RectangleShape>::iterator snakeTail;

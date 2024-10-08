@@ -13,42 +13,34 @@ void Player::playerMovement(sf::Vector2f &moveDirection)
 		}
 }
 
-void Player::updateMovement(sf::Time deltaTime)
+void Player::updateMovement()
 {
-	elapsedTime += deltaTime;
+	sf::Vector2f Direction = { 65.f,0.f };
+
 	//General Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
-		if (elapsedTime.asSeconds() > 0.05f )
-		{
+		
 			snakeDirection = { -65.f,0.f };
-			elapsedTime = sf::Time::Zero;
-			
-		}
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
-		if (elapsedTime.asSeconds() > 0.05f)
-		{
+		
 			snakeDirection = { 65.f,0.f };
-			elapsedTime = sf::Time::Zero;
-		}
+			
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
-		if (elapsedTime.asSeconds() > 0.05f)
-		{
-			snakeDirection = { 0.f ,-65.f }; 
-			elapsedTime = sf::Time::Zero;
-		}
+		
+			snakeDirection = { 0.f ,-65.f };
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		if (elapsedTime.asSeconds() > 0.05f)
-		{
-			snakeDirection = { 0.f ,65.f };
-			elapsedTime = sf::Time::Zero;
-		}
+		
+		snakeDirection = { 0.f ,65.f };
+		
 	}
 
 	if (std::abs(snakeHead->getPosition().x) != std::abs(snakeDirection.x) || std::abs(snakeHead->getPosition().y) != std::abs(snakeDirection.y))
@@ -61,8 +53,13 @@ void Player::updateMovement(sf::Time deltaTime)
 //Updating the player
 void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
-	this->updateMovement(dt);
-	this->playerMovement(snakeDirection);
+	elapsedTime += dt;
+	this->updateMovement();
+	if (elapsedTime.asSeconds() > 0.1)
+	{
+		this->playerMovement(snakeDirection);
+		elapsedTime = sf::Time::Zero;
+	}
 }
 
 //Rendering the player
@@ -125,7 +122,7 @@ void Player::addScore(int points)
 }
 
 //Constructor
-Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4))
+Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
 {
 	snakeHead = --snakeBody.end();
 	snakeTail = snakeBody.begin();
