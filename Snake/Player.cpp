@@ -13,51 +13,56 @@ void Player::playerMovement(sf::Vector2f &moveDirection)
 		}
 }
 
-//Updating the player
-void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
+void Player::updateMovement(sf::Time deltaTime)
 {
-	elapsedTime += dt;
-
-	sf::Vector2f newSnakeDirection;
-
+	elapsedTime += deltaTime;
 	//General Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.05f )
 		{
-			newSnakeDirection = { -65.f,0.f };
-			this->playerMovement(newSnakeDirection); //The 60 means, that it will move by 60 pixels, which in this case is the "block" and food size
+			snakeDirection = { -65.f,0.f };
 			elapsedTime = sf::Time::Zero;
 			
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.05f)
 		{
-			newSnakeDirection = { 65.f,0.f };
-			this->playerMovement(newSnakeDirection); 
+			snakeDirection = { 65.f,0.f };
 			elapsedTime = sf::Time::Zero;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.05f)
 		{
-			newSnakeDirection = { 0.f ,-65.f };
-			this->playerMovement(newSnakeDirection);
+			snakeDirection = { 0.f ,-65.f }; 
 			elapsedTime = sf::Time::Zero;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		if (elapsedTime.asSeconds() > 0.1f)
+		if (elapsedTime.asSeconds() > 0.05f)
 		{
-			newSnakeDirection = { 0.f ,65.f };
-			this->playerMovement(newSnakeDirection);
+			snakeDirection = { 0.f ,65.f };
 			elapsedTime = sf::Time::Zero;
 		}
 	}
+
+	if (std::abs(snakeHead->getPosition().x) != std::abs(snakeDirection.x) || std::abs(snakeHead->getPosition().y) != std::abs(snakeDirection.y))
+	{
+
+	}
+
+}
+
+//Updating the player
+void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
+{
+	this->updateMovement(dt);
+	this->playerMovement(snakeDirection);
 }
 
 //Rendering the player
@@ -101,7 +106,7 @@ void Player::initVariavles()
 {
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
-	this->movementSpeed = 2.0f;
+	this->movementSpeed = 0.25f;
 	float x = 65.f;
 	for (auto& piece : this->snakeBody)
 	{
