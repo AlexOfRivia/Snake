@@ -23,6 +23,7 @@ public:
 	const sf::FloatRect getPlayerBounds() const;
 	//Getting body bounds
 	const sf::FloatRect getBodyBounds() const;
+	bool isCollidingWithBody() const;
 
 
 	//Public parameters

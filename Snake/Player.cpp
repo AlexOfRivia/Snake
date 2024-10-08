@@ -21,25 +21,25 @@ void Player::updateMovement()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		
-			newDirection = { -65.f,0.f };
+			newDirection = { -60.f,0.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		
-			newDirection = { 65.f,0.f };
+			newDirection = { 60.f,0.f };
 			
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
 		
-			 newDirection = { 0.f ,-65.f };
+			 newDirection = { 0.f ,-60.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
 		
-		newDirection = { 0.f ,65.f };
+		newDirection = { 0.f ,60.f };
 		
 	}
 
@@ -48,6 +48,23 @@ void Player::updateMovement()
 		snakeDirection = newDirection;
 	}
 
+}
+
+//This will return wether the head is colliding with the body
+bool Player::isCollidingWithBody() const
+{
+	bool isColliding = false;
+
+	for (auto block = snakeBody.begin(); block != snakeBody.end(); ++block )
+	{
+		if (snakeHead != block&& block->getGlobalBounds().intersects(snakeHead->getGlobalBounds()))
+		{
+			isColliding = true;
+		
+			
+		}
+	}
+	return isColliding;
 }
 
 //Updating the player
@@ -104,13 +121,13 @@ void Player::initVariavles()
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
 	this->movementSpeed = 0.25f;
-	float x = 65.f;
+	float x = 60.f;
 	for (auto& piece : this->snakeBody)
 	{
 		piece.setSize(sf::Vector2f(60, 60));
 		piece.setFillColor(sf::Color::Green);
-		piece.setPosition({x,65.f});
-		x += 65;
+		piece.setPosition({x,60.f});
+		x += 60;
 	}
 }
 
@@ -122,7 +139,7 @@ void Player::addScore(int points)
 }
 
 //Constructor
-Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
+Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 60.f,0.f })
 {
 	snakeHead = --snakeBody.end();
 	snakeTail = snakeBody.begin();

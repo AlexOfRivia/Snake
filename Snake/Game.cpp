@@ -23,11 +23,13 @@ void Game::updateFood()
 {
 	if (this->player->getPlayerBounds().intersects(this->foodObj->getFoodBounds()) )
 	{
-		this->foodObj->moveFood(rand()%1920, rand()%1080);
-		this->player->addScore(1);
 		this->player->growSnake();
+		this->player->addScore(1);
+		this->foodObj->moveFood(rand()%1920, rand()%1080);
 		std::cout << "Collision detected\n";
 	}
+
+	
 }
 
 
