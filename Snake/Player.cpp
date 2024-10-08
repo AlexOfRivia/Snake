@@ -15,37 +15,37 @@ void Player::playerMovement(sf::Vector2f &moveDirection)
 
 void Player::updateMovement()
 {
-	sf::Vector2f Direction = { 65.f,0.f };
+	sf::Vector2f newDirection = snakeDirection;
 
 	//General Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		
-			snakeDirection = { -65.f,0.f };
+			newDirection = { -65.f,0.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		
-			snakeDirection = { 65.f,0.f };
+			newDirection = { 65.f,0.f };
 			
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
 		
-			snakeDirection = { 0.f ,-65.f };
+			 newDirection = { 0.f ,-65.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
 		
-		snakeDirection = { 0.f ,65.f };
+		newDirection = { 0.f ,65.f };
 		
 	}
 
-	if (std::abs(snakeHead->getPosition().x) != std::abs(snakeDirection.x) || std::abs(snakeHead->getPosition().y) != std::abs(snakeDirection.y))
+	if (std::abs(snakeDirection.x) != std::abs(newDirection.x) || std::abs(snakeDirection.y) != std::abs(newDirection.y))
 	{
-
+		snakeDirection = newDirection;
 	}
 
 }
