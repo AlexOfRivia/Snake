@@ -18,8 +18,8 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 
-	sf::Vector2f newSnakeDirection = snakeHead->getPosition();
-	
+	sf::Vector2f newSnakeDirection;
+
 	//General Movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
@@ -33,30 +33,26 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
-		if (elapsedTime.asSeconds() > 0.1f )
+		if (elapsedTime.asSeconds() > 0.1f)
 		{
 			newSnakeDirection = { 65.f,0.f };
 			this->playerMovement(newSnakeDirection); 
 			elapsedTime = sf::Time::Zero;
-			
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
-		if (elapsedTime.asSeconds() > 0.1f )
+		if (elapsedTime.asSeconds() > 0.1f)
 		{
-
 			newSnakeDirection = { 0.f ,-65.f };
 			this->playerMovement(newSnakeDirection);
 			elapsedTime = sf::Time::Zero;
-
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
-		if (elapsedTime.asSeconds() > 0.1f )
+		if (elapsedTime.asSeconds() > 0.1f)
 		{
-
 			newSnakeDirection = { 0.f ,65.f };
 			this->playerMovement(newSnakeDirection);
 			elapsedTime = sf::Time::Zero;
