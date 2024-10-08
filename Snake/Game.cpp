@@ -25,7 +25,7 @@ void Game::updateFood()
 	{
 		this->player->growSnake();
 		this->player->addScore(1);
-		this->foodObj->moveFood(rand()%1920, rand()%1080);
+		this->foodObj->moveFood(rand()%1860, rand()%1020);
 		std::cout << "Collision detected\n";
 	}
 
