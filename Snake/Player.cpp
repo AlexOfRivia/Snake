@@ -75,7 +75,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.2 && isDead == false)
+	if (elapsedTime.asSeconds() > 0.3 && isDead == false)
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
