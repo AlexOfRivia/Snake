@@ -21,25 +21,25 @@ void Player::updateMovement()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		
-			newDirection = { -60.f,0.f };
+			newDirection = { -65.f,0.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		
-			newDirection = { 60.f,0.f };
+			newDirection = { 65.f,0.f };
 			
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
 		
-			 newDirection = { 0.f ,-60.f };
+			 newDirection = { 0.f ,-65.f };
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
 	{
 		
-		newDirection = { 0.f ,60.f };
+		newDirection = { 0.f ,65.f };
 		
 	}
 
@@ -60,8 +60,11 @@ bool Player::isCollidingWithBody() const
 		if (snakeHead != block&& block->getGlobalBounds().intersects(snakeHead->getGlobalBounds()))
 		{
 			isColliding = true;
-		
-			
+
+			if (isColliding)
+			{
+				break;
+			}
 		}
 	}
 	return isColliding;
@@ -95,9 +98,9 @@ void Player::growSnake()
 	sf::RectangleShape newPiece;
 	newPiece.setSize(sf::Vector2f(60, 60));
 	newPiece.setFillColor(sf::Color::Green);
-	newPiece.setPosition(snakeHead->getPosition());
+	newPiece.setPosition(snakeTail->getPosition());
 
-	snakeHead = snakeBody.insert(++snakeHead, newPiece);
+	snakeTail = snakeBody.insert(++snakeTail, newPiece);
 }
 
 //Returns player bounds for collisions, etc.
@@ -106,28 +109,19 @@ const sf::FloatRect Player::getPlayerBounds() const
 	return this->snakeHead->getGlobalBounds();
 }
 
-const sf::FloatRect Player::getBodyBounds() const
-{
-	for (auto& piece : this->snakeBody)
-	{
-		return piece.getGlobalBounds();
-	}
-}
-
-
 //Initializing player variables
 void Player::initVariavles()
 {
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
 	this->movementSpeed = 0.25f;
-	float x = 60.f;
+	float x = 65.f;
 	for (auto& piece : this->snakeBody)
 	{
 		piece.setSize(sf::Vector2f(60, 60));
 		piece.setFillColor(sf::Color::Green);
-		piece.setPosition({x,60.f});
-		x += 60;
+		piece.setPosition({x,65.f});
+		x += 65;
 	}
 }
 
@@ -139,7 +133,7 @@ void Player::addScore(int points)
 }
 
 //Constructor
-Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 60.f,0.f })
+Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
 {
 	snakeHead = --snakeBody.end();
 	snakeTail = snakeBody.begin();

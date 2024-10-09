@@ -28,8 +28,11 @@ void Game::updateFood()
 		this->foodObj->moveFood(rand()%1860, rand()%1020);
 		std::cout << "Collision detected\n";
 	}
-
-	
+	if (this->player->isCollidingWithBody() == true)
+	{
+		this->foodObj->moveFood(10000.f, 10000.f);
+		std::cout << "Game Over xD\n";
+	}
 }
 
 
