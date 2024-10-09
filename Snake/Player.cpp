@@ -75,7 +75,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.1 && isDead == false)
+	if (elapsedTime.asSeconds() > 0.2 && isDead == false)
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
@@ -134,7 +134,7 @@ void Player::initVariavles()
 
 	//Initializing Text
 	font.loadFromFile("DePixelBreit.ttf");
-	scoreText.setPosition(1820/2, 0.f);
+	scoreText.setPosition(1750/2, 0.f);
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(30);
 	
