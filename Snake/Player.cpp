@@ -106,7 +106,7 @@ void Player::growSnake()
 	newPiece.setFillColor(sf::Color::Green);
 	newPiece.setPosition(snakeTail->getPosition());
 
-	snakeTail = snakeBody.insert(++snakeTail, newPiece);
+	snakeTail = snakeBody.insert(snakeTail++, newPiece);
 }
 
 void Player::gameOver()
