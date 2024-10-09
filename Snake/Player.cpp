@@ -75,10 +75,14 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.1)
+	if (elapsedTime.asSeconds() > 0.1 && isDead == false)
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
+	}
+	if (isDead==false)
+	{
+		scoreText.setString("Score: " + std::to_string(score));
 	}
 }
 
@@ -90,7 +94,9 @@ void Player::renderPlayer(sf::RenderTarget& target)
 	{
 		target.draw(piece);
 	}
+	target.draw(this->scoreText);
 }
+
 
 //Function used for adding new blocks to the snake
 void Player::growSnake()
@@ -103,6 +109,13 @@ void Player::growSnake()
 	snakeTail = snakeBody.insert(++snakeTail, newPiece);
 }
 
+void Player::gameOver()
+{
+	this->isDead = true;
+	this->scoreText.setString("Game Over!");
+	this->snakeDirection = {0.f,0.f};
+}
+
 //Returns player bounds for collisions, etc.
 const sf::FloatRect Player::getPlayerBounds() const
 {
@@ -112,9 +125,21 @@ const sf::FloatRect Player::getPlayerBounds() const
 //Initializing player variables
 void Player::initVariavles()
 {
+	//Time and score
 	elapsedTime = sf::Time::Zero;
 	this->score = 0;
-	this->movementSpeed = 0.25f;
+
+	//is player dead
+	this->isDead = false;
+
+	//Initializing Text
+	font.loadFromFile("DePixelBreit.ttf");
+	scoreText.setPosition(1820/2, 0.f);
+	scoreText.setFont(font);
+	scoreText.setCharacterSize(30);
+	
+
+	//Initializing snake body
 	float x = 65.f;
 	for (auto& piece : this->snakeBody)
 	{

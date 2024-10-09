@@ -17,12 +17,13 @@ public:
 	void renderPlayer(sf::RenderTarget& target);
 	void updateMovement();
 	void growSnake();
+	void gameOver();
 	void addScore(int points);
 
 	//Getting player bounds
 	const sf::FloatRect getPlayerBounds() const;
-	//Getting body bounds
-	const sf::FloatRect getBodyBounds() const;
+
+	//Checking wether the head collides with the body
 	bool isCollidingWithBody() const;
 
 
@@ -36,13 +37,17 @@ public:
 private:
 	//Private functions
 	void initVariavles();
+	
+	//Text
+	sf::Text scoreText;
+	sf::Font font;
 
 	//Private parameters
-	float movementSpeed;
 	int score;
-
 	sf::Time elapsedTime;
 	sf::Vector2f snakeDirection;
+	
+	//Snake body
 	std::list<sf::RectangleShape> snakeBody;
 	std::list<sf::RectangleShape>::iterator snakeHead;
 	std::list<sf::RectangleShape>::iterator snakeTail;

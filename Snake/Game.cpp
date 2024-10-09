@@ -31,7 +31,7 @@ void Game::updateFood()
 	if (this->player->isCollidingWithBody() == true)
 	{
 		this->foodObj->moveFood(10000.f, 10000.f);
-		std::cout << "Game Over xD\n";
+		this->player->gameOver();
 	}
 }
 
