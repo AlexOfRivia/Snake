@@ -45,7 +45,7 @@ void Game::Update()
 //Rendering everything to the window
 void Game::Render()
 {
-	this->window->clear(sf::Color::Black); //Clears old frame
+	this->window->clear(sf::Color(37, 37, 37, 0)); //Clears old frame
 	//Rendering(drawing) the objects
 	this->player->renderPlayer(*this->window);
 	this->foodObj->renderFood(*this->window);
