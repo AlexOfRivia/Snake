@@ -16,6 +16,13 @@ void Game::updateEvents()
 	this->player->updatePlayer(this->deltaTime, this->window);
 	this->updateFood();
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && this->player->isDead==true)
+	{
+		std::cout << "Game Restarted\n";
+		this->foodObj->moveFood(rand() % 1860, rand() % 1020);
+		this->player->restartPlayer();
+	}
+
 }
 
 //Updating player-food collision
@@ -31,7 +38,8 @@ void Game::updateFood()
 	if (this->player->isCollidingWithBody() == true)
 	{
 		this->foodObj->moveFood(10000.f, 10000.f);
-		this->player->gameOver();
+		this->player->gameOver(*this->window);
+		this->isPlayerDead = true;
 	}
 }
 
@@ -77,7 +85,8 @@ Game::Game()
 {
 	this->InitVariables(); //this function must be first, because of window being set to nullptr
 	this->InitWindow();
-	this->player = new Player(this->window);
+	this->player = new Player();
+	this->isPlayerDead == false;
 	this->foodObj = new Food(this->window, rand() % 1920, rand() % 1080);
 }
 

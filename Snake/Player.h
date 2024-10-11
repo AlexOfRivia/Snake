@@ -17,7 +17,8 @@ public:
 	void renderPlayer(sf::RenderTarget& target);
 	void updateMovement();
 	void growSnake();
-	void gameOver();
+	void gameOver(sf::RenderTarget& target);
+	void restartPlayer();
 	void addScore(int points);
 
 	//Getting player bounds
@@ -31,7 +32,7 @@ public:
 	bool isDead;
 
 	//Constructor & Destructor
-	Player(sf::RenderWindow* win);
+	Player();
 	~Player();
 
 private:

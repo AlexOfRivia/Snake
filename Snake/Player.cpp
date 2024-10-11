@@ -3,6 +3,8 @@
 //Moving the player
 void Player::playerMovement(sf::Vector2f &moveDirection)
 {
+		//Set screen bounds here
+
 		snakeTail->setPosition(snakeHead->getPosition() + moveDirection);
 		snakeHead = snakeTail;
 		++snakeTail;
@@ -70,12 +72,13 @@ bool Player::isCollidingWithBody() const
 	return isColliding;
 }
 
+
 //Updating the player
 void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.3 && isDead == false)
+	if (elapsedTime.asSeconds() > 0.1 && isDead == false)
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
@@ -109,11 +112,23 @@ void Player::growSnake()
 	snakeTail = snakeBody.insert(snakeTail++, newPiece);
 }
 
-void Player::gameOver()
+void Player::gameOver(sf::RenderTarget& target)
 {
 	this->isDead = true;
-	this->scoreText.setString("Game Over!");
+	this->scoreText.setString("Game Over! Press 'R' to Retart the Game");
+	scoreText.setPosition(875.f / 2, 0.f);
+	scoreText.setCharacterSize(40);
 	this->snakeDirection = {0.f,0.f};
+	this->score = 0;
+}
+
+void Player::restartPlayer()
+{
+	this->snakeBody = (std::list<sf::RectangleShape>(4));
+	this->snakeDirection = { 65.f,0.f };
+	snakeHead = --snakeBody.end();
+	snakeTail = snakeBody.begin();
+	this->initVariavles();
 }
 
 //Returns player bounds for collisions, etc.
@@ -134,10 +149,9 @@ void Player::initVariavles()
 
 	//Initializing Text
 	font.loadFromFile("DePixelBreit.ttf");
-	scoreText.setPosition(1750/2, 0.f);
+	scoreText.setPosition(1750.f/2, 0.f);
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(30);
-	
 
 	//Initializing snake body
 	float x = 65.f;
@@ -158,7 +172,7 @@ void Player::addScore(int points)
 }
 
 //Constructor
-Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
+Player::Player() : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
 {
 	snakeHead = --snakeBody.end();
 	snakeTail = snakeBody.begin();
@@ -168,5 +182,5 @@ Player::Player(sf::RenderWindow* win) : snakeBody(std::list<sf::RectangleShape>(
 //Destructor
 Player::~Player()
 {
-	
+	std::cout << "Player removed\n";
 }

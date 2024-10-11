@@ -44,9 +44,8 @@ class Game
 	//Player and food objects
 	Player* player;
 	Food* foodObj;
-
-	//Snake body vector will go here
-
+	bool isPlayerDead;
+	
 	//private functions
 	void InitVariables();
 	void InitWindow();
