@@ -16,7 +16,6 @@ This class is used as the "Game Engine". Everything is happening here
 /*
 TODO
 - set screen bounds for snake movement
-- Add a game over screen
 - Add a main menu
 */
 
