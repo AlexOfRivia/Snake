@@ -3,8 +3,6 @@
 //Moving the player
 void Player::playerMovement(sf::Vector2f &moveDirection)
 {
-		//Set screen bounds here
-
 		snakeTail->setPosition(snakeHead->getPosition() + moveDirection);
 		snakeHead = snakeTail;
 		++snakeTail;
@@ -48,6 +46,34 @@ void Player::updateMovement()
 	if (std::abs(snakeDirection.x) != std::abs(newDirection.x) || std::abs(snakeDirection.y) != std::abs(newDirection.y))
 	{
 		snakeDirection = newDirection;
+	}
+
+	//Screen Bounds Below
+
+	//Right
+	if (this->snakeHead->getPosition().x < 0)
+	{
+		this->snakeHead->setPosition(1920.f, this->snakeHead->getPosition().y);
+	}
+
+	//Down
+	if (this->snakeHead->getPosition().y < 0)
+	{
+		this->snakeHead->setPosition(this->snakeHead->getPosition().x, 1080.f);
+		
+	}
+
+	//Left
+	if (this->snakeHead->getPosition().x + this->snakeHead->getGlobalBounds().width > 1985)
+	{
+		this->snakeHead->setPosition(0, this->snakeHead->getPosition().y);
+		
+	}
+
+	//Up
+	if (this->snakeHead->getPosition().y + this->snakeHead->getGlobalBounds().height > 1145)
+	{
+		this->snakeHead->setPosition(this->snakeHead->getPosition().x, 0);
 	}
 
 }
