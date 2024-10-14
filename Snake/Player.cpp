@@ -127,6 +127,7 @@ void Player::renderPlayer(sf::RenderTarget& target)
 }
 
 
+
 //Function used for adding new blocks to the snake
 void Player::growSnake()
 {
