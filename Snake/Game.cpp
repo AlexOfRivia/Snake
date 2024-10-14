@@ -39,6 +39,10 @@ void Game::updateFood()
 	{
 		this->foodObj->moveFood(10000.f, 10000.f);
 		this->player->gameOver(*this->window);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+		{
+			this->window->close();
+		}
 		this->isPlayerDead = true;
 	}
 }

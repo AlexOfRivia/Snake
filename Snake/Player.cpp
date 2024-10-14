@@ -141,8 +141,8 @@ void Player::growSnake()
 void Player::gameOver(sf::RenderTarget& target)
 {
 	this->isDead = true;
-	this->scoreText.setString("Game Over! Press 'R' to Retart the Game");
-	scoreText.setPosition(875.f / 2, 0.f);
+	this->scoreText.setString("Game Over! Press 'R' to Retart the Game Or Press 'Esc' to Exit");
+	scoreText.setPosition(375.f / 2, 0.f);
 	scoreText.setCharacterSize(40);
 	this->snakeDirection = {0.f,0.f};
 	this->score = 0;
