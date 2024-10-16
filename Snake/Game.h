@@ -21,7 +21,6 @@ class Game
 	void Update();
 	void Render();
 
-
 	//bool for checking if the window is runing
 	const bool isRunning() const;
 
