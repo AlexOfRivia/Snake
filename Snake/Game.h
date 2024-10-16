@@ -13,11 +13,6 @@
 This class is used as the "Game Engine". Everything is happening here
 */
 
-/*
-TODO
-- Add a main menu
-*/
-
 class Game
 {
 	public:
@@ -35,6 +30,7 @@ class Game
 	~Game();
 
 	private:
+	//Private parameters
 	sf::RenderWindow* window;
 	sf::Event event;
 	sf::Time deltaTime;

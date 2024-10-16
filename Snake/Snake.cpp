@@ -6,7 +6,7 @@ int main()
 {
     //Initializing a Game Object
     Game game;
-
+    
     //Application(Game) Loop
     while (game.isRunning())
     {
