@@ -20,8 +20,6 @@ public:
 	~Food();
 
 private:
-	//Private functions
-
 	sf::RectangleShape foodShape;
 };
 
