@@ -4,7 +4,7 @@
 void Game::updateEvents()
 {
 	sf::Clock clock;
-	deltaTime = sf::seconds(1.f/60.f);
+	deltaTime = sf::seconds(1.f/60.f); 
 
 	while (this->window->pollEvent(this->event))
 	{
@@ -13,14 +13,14 @@ void Game::updateEvents()
 	}
 
 	//Player Movement
-	this->player->updatePlayer(this->deltaTime, this->window);
-	this->updateFood();
+	this->player->updatePlayer(this->deltaTime, this->window); //Updating the player
+	this->updateFood(); //Updating the food (changing it's position)
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && this->player->isDead==true)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && this->player->isDead==true) //Checking for key press and isDead bool
 	{
 		std::cout << "Game Restarted\n";
-		this->foodObj->moveFood(rand() % 1860, rand() % 1020);
-		this->player->restartPlayer();
+		this->foodObj->moveFood(rand() % 1860, rand() % 1020); //Changing the location of the food object
+		this->player->restartPlayer(); //Restarting the player
 	}
 
 }
@@ -28,22 +28,22 @@ void Game::updateEvents()
 //Updating player-food collision
 void Game::updateFood()
 {
-	if (this->player->getPlayerBounds().intersects(this->foodObj->getFoodBounds()) )
+	if (this->player->getPlayerBounds().intersects(this->foodObj->getFoodBounds()) ) //If player touches the food object
 	{
-		this->player->growSnake();
-		this->player->addScore(1);
-		this->foodObj->moveFood(rand()%1860, rand()%1020);
-		std::cout << "Collision detected\n";
-	}
-	if (this->player->isCollidingWithBody() == true)
+		this->player->growSnake(); //Growing the snake
+		this->player->addScore(1); //INcrementing the score
+		this->foodObj->moveFood(rand()%1860, rand()%1020); //Moving the food object
+		std::cout << "Collision detected\n"; //Debugging information
+	} 
+	if (this->player->isCollidingWithBody() == true) //Checking if the snake is colliding with itself
 	{
-		this->foodObj->moveFood(10000.f, 10000.f);
-		this->player->gameOver(*this->window);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+		this->foodObj->moveFood(10000.f, 10000.f); //Moving the food out of screen bounds
+		this->player->gameOver(*this->window); //Displaying the game over screen
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) //Checking if escape key is pressed
 		{
-			this->window->close();
+			this->window->close(); //Closing the window
 		}
-		this->isPlayerDead = true;
+		this->isPlayerDead = true; 
 	}
 }
 
@@ -59,8 +59,8 @@ void Game::Render()
 {
 	this->window->clear(sf::Color(37, 37, 37, 0)); //Clears old frame
 	//Rendering(drawing) the objects
-	this->player->renderPlayer(*this->window);
-	this->foodObj->renderFood(*this->window);
+	this->player->renderPlayer(*this->window); //Rednering the player
+	this->foodObj->renderFood(*this->window); //Rendering the food
 	this->window->display(); //Displays new frame
 }
 
@@ -89,9 +89,9 @@ Game::Game()
 {
 	this->InitVariables(); //this function must be first, because of window being set to nullptr
 	this->InitWindow();
-	this->player = new Player();
+	this->player = new Player(); //Creating new player object
 	this->isPlayerDead == false;
-	this->foodObj = new Food(this->window, rand() % 1920, rand() % 1080);
+	this->foodObj = new Food(this->window, rand() % 1920, rand() % 1080); //Creating new food object
 }
 
 //Destructor
@@ -100,5 +100,4 @@ Game::~Game()
 	delete this->window;
 	delete this->player;
 	delete this->foodObj;
-	
 }

@@ -3,7 +3,7 @@
 //Moving the player
 void Player::playerMovement(sf::Vector2f &moveDirection)
 {
-		snakeTail->setPosition(snakeHead->getPosition() + moveDirection);
+		snakeTail->setPosition(snakeHead->getPosition() + moveDirection); //Setting the position of the tail
 		snakeHead = snakeTail;
 		++snakeTail;
 
@@ -85,17 +85,17 @@ bool Player::isCollidingWithBody() const
 
 	for (auto block = snakeBody.begin(); block != snakeBody.end(); ++block )
 	{
-		if (snakeHead != block&& block->getGlobalBounds().intersects(snakeHead->getGlobalBounds()))
+		if (snakeHead != block&& block->getGlobalBounds().intersects(snakeHead->getGlobalBounds())) //Checking if body is intersecting the head
 		{
 			isColliding = true;
 
 			if (isColliding)
 			{
-				break;
+				break; //Breaking upon collisiong
 			}
 		}
 	}
-	return isColliding;
+	return isColliding; //Returning boolean
 }
 
 
@@ -104,7 +104,7 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.1 && isDead == false)
+	if (elapsedTime.asSeconds() > 0.1 && isDead == false) //Moving the snake in one direction automatically
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
@@ -121,9 +121,9 @@ void Player::renderPlayer(sf::RenderTarget& target)
 	//target.draw(this->playerShape);
 	for (auto& piece : this->snakeBody)
 	{
-		target.draw(piece);
+		target.draw(piece); //Drawing the body blocks
 	}
-	target.draw(this->scoreText);
+	target.draw(this->scoreText); //Drawing the player score text
 }
 
 
@@ -131,12 +131,12 @@ void Player::renderPlayer(sf::RenderTarget& target)
 //Function used for adding new blocks to the snake
 void Player::growSnake()
 {
-	sf::RectangleShape newPiece;
-	newPiece.setSize(sf::Vector2f(60, 60));
-	newPiece.setFillColor(sf::Color::Green);
-	newPiece.setPosition(snakeTail->getPosition());
+	sf::RectangleShape newPiece; //New body piece
+	newPiece.setSize(sf::Vector2f(60, 60)); //Setting the new block size
+	newPiece.setFillColor(sf::Color::Green); //Setting the block color
+	newPiece.setPosition(snakeTail->getPosition()); //Setting the block position
 
-	snakeTail = snakeBody.insert(snakeTail++, newPiece);
+	snakeTail = snakeBody.insert(snakeTail++, newPiece); //Inserting the new block into the body list
 }
 
 void Player::gameOver(sf::RenderTarget& target)
@@ -145,15 +145,15 @@ void Player::gameOver(sf::RenderTarget& target)
 	this->scoreText.setString("Game Over! Press 'R' to Retart the Game Or Press 'Esc' to Exit");
 	scoreText.setPosition(375.f / 2, 0.f);
 	scoreText.setCharacterSize(40);
-	this->snakeDirection = {0.f,0.f};
-	this->score = 0;
+	this->snakeDirection = {0.f,0.f}; //Stopping the snake
+	this->score = 0; //Zeroing out the score
 }
 
 void Player::restartPlayer()
 {
-	this->snakeBody = (std::list<sf::RectangleShape>(4));
-	this->snakeDirection = { 65.f,0.f };
-	snakeHead = --snakeBody.end();
+	this->snakeBody = (std::list<sf::RectangleShape>(4)); //Generating new body list
+	this->snakeDirection = { 65.f,0.f }; //Adding new direction to the right
+	snakeHead = --snakeBody.end(); //Setting head and tail position
 	snakeTail = snakeBody.begin();
 	this->initVariavles();
 }
@@ -161,15 +161,15 @@ void Player::restartPlayer()
 //Returns player bounds for collisions, etc.
 const sf::FloatRect Player::getPlayerBounds() const
 {
-	return this->snakeHead->getGlobalBounds();
+	return this->snakeHead->getGlobalBounds(); //Getting head bounds
 }
 
 //Initializing player variables
 void Player::initVariavles()
 {
 	//Time and score
-	elapsedTime = sf::Time::Zero;
-	this->score = 0;
+	elapsedTime = sf::Time::Zero; //Setting time elapsed as zero
+	this->score = 0; //Setting the score as zero 
 
 	//is player dead
 	this->isDead = false;
