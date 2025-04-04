@@ -6,7 +6,11 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
+#include "snakeBodyPiece.h"
 
+
+/*TODO
+- Maybe add a class for snakeBodyPiece which also inherits from sf::RectangleShape*/
 
 class Player
 {
