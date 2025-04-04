@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
 
-class Food
+class Food : public sf::RectangleShape //Inheriting from sf::RectangleShape
 {
 public:
 	//Public functions
@@ -19,7 +19,5 @@ public:
 	Food(sf::RenderWindow* win, float posX, float posY);
 	~Food();
 
-private:
-	sf::RectangleShape foodShape;
 };
 

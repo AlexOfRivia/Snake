@@ -13,6 +13,10 @@
 This class is used as the "Game Engine". Everything is happening here
 */
 
+/*TODO
+- Add pausing the game
+*/
+
 class Game
 {
 	public:
