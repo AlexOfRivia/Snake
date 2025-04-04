@@ -53,8 +53,8 @@ private:
 	sf::Vector2f snakeDirection;
 	
 	//Snake body
-	std::list<sf::RectangleShape> snakeBody;
-	std::list<sf::RectangleShape>::iterator snakeHead;
-	std::list<sf::RectangleShape>::iterator snakeTail;
+	std::list<snakeBodyPiece> snakeBody;
+	std::list<snakeBodyPiece>::iterator snakeHead;
+	std::list<snakeBodyPiece>::iterator snakeTail;
 };
 

@@ -11,10 +11,6 @@ public:
 	//Constructor & Destructor
 	snakeBodyPiece();
 	~snakeBodyPiece();
-	//Public functions
-	void setSize(float x, float y);
-	void setColor(sf::Color color);
-	void setPosition(float x, float y);
 	const sf::FloatRect getBounds() const;
 };
 

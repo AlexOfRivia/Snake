@@ -131,9 +131,7 @@ void Player::renderPlayer(sf::RenderTarget& target)
 //Function used for adding new blocks to the snake
 void Player::growSnake()
 {
-	sf::RectangleShape newPiece; //New body piece
-	newPiece.setSize(sf::Vector2f(60, 60)); //Setting the new block size
-	newPiece.setFillColor(sf::Color::Green); //Setting the block color
+	snakeBodyPiece newPiece; //New body piece
 	newPiece.setPosition(snakeTail->getPosition()); //Setting the block position
 
 	snakeTail = snakeBody.insert(snakeTail++, newPiece); //Inserting the new block into the body list
@@ -151,7 +149,7 @@ void Player::gameOver(sf::RenderTarget& target)
 
 void Player::restartPlayer()
 {
-	this->snakeBody = (std::list<sf::RectangleShape>(4)); //Generating new body list
+	this->snakeBody = (std::list<snakeBodyPiece>(4)); //Generating new body list
 	this->snakeDirection = { 65.f,0.f }; //Adding new direction to the right
 	snakeHead = --snakeBody.end(); //Setting head and tail position
 	snakeTail = snakeBody.begin();
@@ -184,10 +182,10 @@ void Player::initVariavles()
 	float x = 65.f;
 	for (auto& piece : this->snakeBody)
 	{
-		piece.setSize(sf::Vector2f(60, 60));
-		piece.setFillColor(sf::Color::Green);
-		piece.setPosition({x,65.f});
-		x += 65;
+		piece.setSize({ 60, 60 }); //Setting the size of the snake body piece
+		piece.setFillColor(sf::Color::Green); //Setting the color of the snake body piece
+		piece.setPosition({ x,65.f }); //Setting the position of the snake body piece
+		x += 65; //Incrementing x position
 	}
 }
 
@@ -199,7 +197,7 @@ void Player::addScore(int points)
 }
 
 //Constructor
-Player::Player() : snakeBody(std::list<sf::RectangleShape>(4)), snakeDirection({ 65.f,0.f })
+Player::Player() : snakeBody(std::list<snakeBodyPiece>(4)), snakeDirection({ 65.f,0.f })
 {
 	snakeHead = --snakeBody.end();
 	snakeTail = snakeBody.begin();
