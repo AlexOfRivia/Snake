@@ -22,7 +22,6 @@ void Game::updateEvents()
 		this->foodObj->moveFood(rand() % 1860, rand() % 1020); //Changing the location of the food object
 		this->player->restartPlayer(); //Restarting the player
 	}
-
 }
 
 //Updating player-food collision

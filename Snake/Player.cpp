@@ -9,7 +9,7 @@ void Player::playerMovement(sf::Vector2f &moveDirection)
 
 		if (snakeTail == snakeBody.end())
 		{
-			snakeTail = snakeBody.begin();
+			snakeTail = snakeBody.begin(); 
 		}
 }
 
