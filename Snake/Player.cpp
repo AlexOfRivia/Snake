@@ -52,14 +52,12 @@ void Player::updateMovement()
 	if (this->snakeHead->getPosition().y < 0)
 	{
 		this->snakeHead->setPosition(this->snakeHead->getPosition().x, 1080.f);
-		
 	}
 
 	//Left
 	if (this->snakeHead->getPosition().x + this->snakeHead->getGlobalBounds().width > 1985)
 	{
 		this->snakeHead->setPosition(0, this->snakeHead->getPosition().y);
-		
 	}
 
 	//Up
