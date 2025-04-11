@@ -47,7 +47,6 @@ void Game::updateFood()
 	}
 }
 
-
 //Updating the game overall
 void Game::Update()
 {

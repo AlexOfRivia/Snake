@@ -14,7 +14,7 @@ This class is used as the "Game Engine". Everything is happening here
 */
 
 /*TODO
-- Add pausing the game
+- Place food on a grid, so that it's perfect with the snake size etc (the food is 60 by 60)
 */
 
 class Game

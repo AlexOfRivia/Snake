@@ -1,6 +1,10 @@
 #include "Player.h"
 
 //Moving the player
+
+/*TODO:
+- Add pausing the game
+*/
 void Player::playerMovement(sf::Vector2f &moveDirection)
 {
 		snakeTail->setPosition(snakeHead->getPosition() + moveDirection); //Setting the position of the tail
@@ -111,7 +115,8 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	}
 	if (isDead==false)
 	{
-		scoreText.setString("Score: " + std::to_string(score));
+		this->scoreText.setString("Score: " + std::to_string(this->score));
+		this->finalScoreText.setString("Score: " + std::to_string(this->score));
 	}
 }
 
@@ -124,6 +129,7 @@ void Player::renderPlayer(sf::RenderTarget& target)
 		target.draw(piece); //Drawing the body blocks
 	}
 	target.draw(this->scoreText); //Drawing the player score text
+	target.draw(this->finalScoreText);
 }
 
 
@@ -141,8 +147,9 @@ void Player::gameOver(sf::RenderTarget& target)
 {
 	this->isDead = true;
 	this->scoreText.setString("Game Over! Press 'R' to Retart the Game Or Press 'Esc' to Exit");
-	scoreText.setPosition(375.f / 2, 0.f);
-	scoreText.setCharacterSize(40);
+	this->scoreText.setPosition(375.f / 2, 0.f);
+	this->scoreText.setCharacterSize(40);
+	this->finalScoreText.setPosition(1750.f/2, 50);
 	this->snakeDirection = {0.f,0.f}; //Stopping the snake
 	this->score = 0; //Zeroing out the score
 }
@@ -178,6 +185,11 @@ void Player::initVariavles()
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(30);
 
+	//Initializing gameover score text
+	finalScoreText.setPosition(100000.f, 1000000.f);
+	finalScoreText.setFont(font);
+	finalScoreText.setCharacterSize(40);
+
 	//Initializing snake body
 	float x = 65.f;
 	for (auto& piece : this->snakeBody)
@@ -199,8 +211,9 @@ void Player::addScore(int points)
 //Constructor
 Player::Player() : snakeBody(std::list<snakeBodyPiece>(4)), snakeDirection({ 65.f,0.f })
 {
-	snakeHead = --snakeBody.end();
-	snakeTail = snakeBody.begin();
+	this->isPaused = false;
+	this->snakeHead = --snakeBody.end();
+	this->snakeTail = snakeBody.begin();
 	this->initVariavles();
 }
 

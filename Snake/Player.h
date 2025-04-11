@@ -8,10 +8,6 @@
 #include <SFML/Window.hpp>
 #include "snakeBodyPiece.h"
 
-
-/*TODO
-- Maybe add a class for snakeBodyPiece which also inherits from sf::RectangleShape*/
-
 class Player
 {
 public:
@@ -42,9 +38,13 @@ public:
 private:
 	//Private functions
 	void initVariavles();
+
+	bool isPaused;
 	
 	//Text
 	sf::Text scoreText;
+	sf::Text finalScoreText;
+	sf::Text pausedText;
 	sf::Font font;
 
 	//Private parameters
