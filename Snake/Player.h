@@ -39,7 +39,9 @@ private:
 	//Private functions
 	void initVariavles();
 
-	bool isPaused;
+	//Pausing parameters
+	bool isPaused=false;
+	bool isPKeyPressed = false;
 	
 	//Text
 	sf::Text scoreText;

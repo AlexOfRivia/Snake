@@ -1,10 +1,6 @@
 #include "Player.h"
 
 //Moving the player
-
-/*TODO:
-- Add pausing the game
-*/
 void Player::playerMovement(sf::Vector2f &moveDirection)
 {
 		snakeTail->setPosition(snakeHead->getPosition() + moveDirection); //Setting the position of the tail
@@ -22,29 +18,21 @@ void Player::updateMovement()
 	sf::Vector2f newDirection = snakeDirection;
 
 	//General Movement
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)))
 	{
-		
-			newDirection = { -65.f,0.f };
-		
+		newDirection = { -65.f,0.f };
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)))
 	{
-		
-			newDirection = { 65.f,0.f };
-			
+		newDirection = { 65.f,0.f };		
+	} 
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)))
+	{
+		newDirection = { 0.f ,-65.f };
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)))
 	{
-		
-			 newDirection = { 0.f ,-65.f };
-		
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-	{
-		
-		newDirection = { 0.f ,65.f };
-		
+		newDirection = { 0.f ,65.f };	
 	}
 
 	if (std::abs(snakeDirection.x) != std::abs(newDirection.x) || std::abs(snakeDirection.y) != std::abs(newDirection.y))
@@ -107,8 +95,20 @@ bool Player::isCollidingWithBody() const
 void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 {
 	elapsedTime += dt;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+	{
+		if (!isPKeyPressed) // Only toggle if the key was not already pressed
+		{
+			this->isPaused = !this->isPaused; // Toggle pause state
+			isPKeyPressed = true; // Mark the key as pressed
+		}
+	}
+	else
+	{
+		isPKeyPressed = false; // Reset the key state when released
+	}
 	this->updateMovement();
-	if (elapsedTime.asSeconds() > 0.1 && isDead == false) //Moving the snake in one direction automatically
+	if (elapsedTime.asSeconds() > 0.1 && isDead == false && isPaused==false) //Moving the snake in one direction automatically
 	{
 		this->playerMovement(snakeDirection);
 		elapsedTime = sf::Time::Zero;
@@ -117,6 +117,20 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	{
 		this->scoreText.setString("Score: " + std::to_string(this->score));
 		this->finalScoreText.setString("Score: " + std::to_string(this->score));
+	}
+	if (this->isPaused==true && this->isDead==false)
+	{
+		this->pausedText.setString("Game Paused! Press 'P' to unpause");
+		this->pausedText.setPosition(500.f,500.f);
+	}
+	if (this->isPaused == false && this->isDead == false)
+	{
+		this->pausedText.setString("Game Paused! Press 'P' to unpause");
+		this->pausedText.setPosition(100000.f, 100000.f);
+	}
+	if (this->isPaused==true && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
+	{
+		this->restartPlayer();
 	}
 }
 
@@ -129,7 +143,8 @@ void Player::renderPlayer(sf::RenderTarget& target)
 		target.draw(piece); //Drawing the body blocks
 	}
 	target.draw(this->scoreText); //Drawing the player score text
-	target.draw(this->finalScoreText);
+	target.draw(this->finalScoreText); //Drawing the final score text
+	target.draw(this->pausedText); //Drawing the paused text
 }
 
 
@@ -146,6 +161,7 @@ void Player::growSnake()
 void Player::gameOver(sf::RenderTarget& target)
 {
 	this->isDead = true;
+	this->isPaused = false;
 	this->scoreText.setString("Game Over! Press 'R' to Retart the Game Or Press 'Esc' to Exit");
 	this->scoreText.setPosition(375.f / 2, 0.f);
 	this->scoreText.setCharacterSize(40);
@@ -179,6 +195,9 @@ void Player::initVariavles()
 	//is player dead
 	this->isDead = false;
 
+	//Is game paused
+	this->isPaused = false;
+
 	//Initializing Text
 	font.loadFromFile("DePixelBreit.ttf");
 	scoreText.setPosition(1750.f/2, 0.f);
@@ -189,6 +208,13 @@ void Player::initVariavles()
 	finalScoreText.setPosition(100000.f, 1000000.f);
 	finalScoreText.setFont(font);
 	finalScoreText.setCharacterSize(40);
+
+	//Paused text in center
+	pausedText.setPosition(10000.f , 100000.f);
+	pausedText.setFont(font);
+	pausedText.setCharacterSize(40);
+	pausedText.setFillColor(sf::Color::Red);
+	
 
 	//Initializing snake body
 	float x = 65.f;
@@ -211,7 +237,6 @@ void Player::addScore(int points)
 //Constructor
 Player::Player() : snakeBody(std::list<snakeBodyPiece>(4)), snakeDirection({ 65.f,0.f })
 {
-	this->isPaused = false;
 	this->snakeHead = --snakeBody.end();
 	this->snakeTail = snakeBody.begin();
 	this->initVariavles();
