@@ -19,7 +19,11 @@ void Game::updateEvents()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && this->player->isDead==true) //Checking for key press and isDead bool
 	{
 		std::cout << "Game Restarted\n";
-		this->foodObj->moveFood(rand() % 1860, rand() % 1020); //Changing the location of the food object
+
+		int xIndex = rand() % this->gridXAxis.size(); //Randomizing the food position
+		int yIndex = rand() % this->gridYAxis.size(); //Randomizing the food position
+
+		this->foodObj->moveFood(gridXAxis[xIndex], gridYAxis[yIndex]); //Moving the food object
 		this->player->restartPlayer(); //Restarting the player
 	}
 }
@@ -31,7 +35,11 @@ void Game::updateFood()
 	{
 		this->player->growSnake(); //Growing the snake
 		this->player->addScore(1); //INcrementing the score
-		this->foodObj->moveFood(rand()%1860, rand()%1020); //Moving the food object
+
+		int xIndex = rand() % this->gridXAxis.size(); //Randomizing the food position
+		int yIndex = rand() % this->gridYAxis.size(); //Randomizing the food position
+
+		this->foodObj->moveFood(gridXAxis[xIndex], gridYAxis[yIndex]); //Moving the food object
 		std::cout << "Collision detected\n"; //Debugging information
 	} 
 	if (this->player->isCollidingWithBody() == true) //Checking if the snake is colliding with itself
@@ -87,9 +95,23 @@ Game::Game()
 {
 	this->InitVariables(); //this function must be first, because of window being set to nullptr
 	this->InitWindow();
+
+	//Initializing gthe grid
+	for (int i = 0; i < 31; i++)
+	{
+		this->gridXAxis.push_back(i * 60.f); //Creating a grid for the snake
+	}
+	for (int i = 0; i < 17; i++)
+	{
+		this->gridYAxis.push_back(i * 60.f); //Creating a grid for the snake
+	}
+
+	int xIndex = rand() % this->gridXAxis.size(); //Randomizing the food position
+	int yIndex = rand() % this->gridYAxis.size(); //Randomizing the food position
+
 	this->player = new Player(); //Creating new player object
-	this->isPlayerDead == false;
-	this->foodObj = new Food(this->window, rand() % 1920, rand() % 1080); //Creating new food object
+	this->isPlayerDead =false;
+	this->foodObj = new Food(this->window, gridXAxis[xIndex], gridYAxis[yIndex]); //Creating new food object
 }
 
 //Destructor
