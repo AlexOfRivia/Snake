@@ -95,15 +95,15 @@ void Player::updatePlayer(sf::Time dt, sf::RenderWindow* win)
 	elapsedTime += dt;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
 	{
-		if (!isPKeyPressed) // Only toggle if the key was not already pressed
+		if (!isPKeyPressed) //Only toggle if the key was not already pressed
 		{
-			this->isPaused = !this->isPaused; // Toggle pause state
-			isPKeyPressed = true; // Mark the key as pressed
+			this->isPaused = !this->isPaused; //Toggle pause state
+			isPKeyPressed = true; //Mark the key as pressed
 		}
 	}
 	else
 	{
-		isPKeyPressed = false; // Reset the key state when released
+		isPKeyPressed = false; //Reset the key state when released
 	}
 	this->updateMovement();
 	if (elapsedTime.asSeconds() > 0.1 && isDead == false && isPaused==false) //Moving the snake in one direction automatically
