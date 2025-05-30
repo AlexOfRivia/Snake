@@ -114,7 +114,7 @@ Game::Game()
 	this->foodObj = new Food(this->window, gridXAxis[xIndex], gridYAxis[yIndex]); //Creating new food object
 }
 
-//Destructor
+//Destructor 
 Game::~Game()
 {
 	delete this->window;
